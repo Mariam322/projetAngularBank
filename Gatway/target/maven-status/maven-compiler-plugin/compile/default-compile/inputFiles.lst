@@ -1,0 +1,5 @@
+/opt/Gateway/Gatway/src/main/java/tn/iit/ApiGatwayCompainApplication.java
+/opt/Gateway/Gatway/src/main/java/tn/iit/config/JwtAuthConverter.java
+/opt/Gateway/Gatway/src/main/java/tn/iit/config/SecurityConfig.java
+/opt/Gateway/Gatway/src/main/java/tn/iit/config/SwaggerConfig.java
+/opt/Gateway/Gatway/src/main/java/tn/iit/controller/SwaggerController.java
