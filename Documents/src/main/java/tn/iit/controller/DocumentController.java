@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.Map;
 import org.springframework.web.bind.annotation.RestController;
 import tn.iit.service.DocumentService;
-import tn.iit.service.GoogleDriveService;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,7 +29,7 @@ import java.sql.Date;
 import org.springframework.http.ContentDisposition;
 import java.util.HashMap;
 import java.util.Map;
-// Nouveaux imports ajoutés
+// Nouveaux imports ajoutÃ©s
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.*;
@@ -67,24 +67,9 @@ public class DocumentController {
    private final DocumentRepository documentRepository; // Ajoutez ce champ
     private final DocumentService documentService;
 
-    private final GoogleDriveService googleDriveService;
+ 
 
-    @GetMapping("/document/{factureId}")
-    
-    public ResponseEntity<byte[]> downloadPdf(@PathVariable Long factureId) throws Exception {
-        // 1. Récupérer les métadonnées du document
-        String driveFileId = documentService.getDriveFileIdByFactureId(factureId);
-        
-        // 2. Télécharger le fichier depuis Google Drive
-        byte[] fileContent = googleDriveService.downloadFile(driveFileId);
-        
-        // 3. Retourner le fichier
-        return ResponseEntity.ok()
-                .header("Content-Type", "application/pdf")
-                .header("Content-Disposition", "attachment; filename=facture_" + factureId + ".pdf")
-                .body(fileContent);
-    }
-    
+   
     
     
 
@@ -107,7 +92,7 @@ public class DocumentController {
 
     @GetMapping("/document")
     @ResponseStatus(HttpStatus.OK)
-    @Operation(summary = "Lister tous les documents", description = "Retourne tous les documents enregistre´s")
+    @Operation(summary = "Lister tous les documents", description = "Retourne tous les documents enregistreÂ´s")
 
     public List<DocumentResponse> getAll() {
         return documentService.getAllDocuments();
@@ -171,13 +156,13 @@ public class DocumentController {
             String filename = document.getId() + "_" + file.getOriginalFilename();
             Path filePath = typePath.resolve(filename);
             
-            // Écriture du fichier sur le disque
+            // Ã‰criture du fichier sur le disque
             try (FileOutputStream fos = new FileOutputStream(filePath.toFile())) {
                 FileCopyUtils.copy(file.getInputStream(), fos);
             }
 
             return ResponseEntity.ok(Map.of(
-                "message", "Fichier uploadé avec succès",
+                "message", "Fichier uploadÃ© avec succÃ¨s",
                 "id", document.getId(),
                 "path", filePath.toString()
             ));
@@ -195,7 +180,7 @@ public class DocumentController {
     public ResponseEntity<byte[]> downloadDocument(@PathVariable Long id) {
         try {
             Document document = documentRepository.findById(id)
-                    .orElseThrow(() -> new RuntimeException("Document non trouvé"));
+                    .orElseThrow(() -> new RuntimeException("Document non trouvÃ©"));
 
             return ResponseEntity.ok()
                     .header(HttpHeaders.CONTENT_TYPE, getContentType(document.getNomfichier()))
@@ -230,7 +215,7 @@ public ResponseEntity<byte[]> viewDocument(@PathVariable Long id) {
     
     HttpHeaders headers = new HttpHeaders();
     
-    // Détermination dynamique du Content-Type
+    // DÃ©termination dynamique du Content-Type
     String contentType = determineContentType(document.getNomfichier());
     headers.setContentType(MediaType.parseMediaType(contentType));
     
@@ -243,7 +228,7 @@ public ResponseEntity<byte[]> viewDocument(@PathVariable Long id) {
             .body(document.getContenuPdf());
 }
 
-// Méthode utilitaire pour déterminer le Content-Type
+// MÃ©thode utilitaire pour dÃ©terminer le Content-Type
 private String determineContentType(String filename) {
     if (filename == null) {
         return MediaType.APPLICATION_OCTET_STREAM_VALUE;
@@ -268,7 +253,7 @@ private String determineContentType(String filename) {
     }
     // Ajoutez d'autres types au besoin
     
-    return MediaType.APPLICATION_OCTET_STREAM_VALUE; // Type par défaut
+    return MediaType.APPLICATION_OCTET_STREAM_VALUE; // Type par dÃ©faut
 }
 }
 
