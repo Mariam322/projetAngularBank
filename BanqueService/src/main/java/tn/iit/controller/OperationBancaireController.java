@@ -33,8 +33,8 @@ public class OperationBancaireController {
 
 
 	@GetMapping("/operations")
- @Operation(summary = "Lister toutes les operations", description = "Permet d’obtenir la liste de toutes les opérations bancaires")
-    @ApiResponse(responseCode = "200", description = "Liste des operations récupérée avec succès")
+ @Operation(summary = "Lister toutes les operations", description = "Permet dâ€™obtenir la liste de toutes les operations bancaires")
+    @ApiResponse(responseCode = "200", description = "Liste des operations recuperee avec succes")
     public List<OperationBancaire> getAllOperations() {
         return operationService.findAll();
     }
@@ -42,18 +42,18 @@ public class OperationBancaireController {
 
     @GetMapping("/operations/{id}")
     
-    @Operation(summary = "Obtenir une opération par ID", description = "Recupere une operation bancaire par son identifiant")
+    @Operation(summary = "Obtenir une opÃ©ration par ID", description = "Recupere une operation bancaire par son identifiant")
     @ApiResponse(responseCode = "200", description = "Operation trouvee")
-    @ApiResponse(responseCode = "404", description = "Opération non trouvee")
+    @ApiResponse(responseCode = "404", description = "OpÃ©ration non trouvee")
     public OperationBancaire getById(@PathVariable("id") Long id) throws OperationNotFoundException {
         return operationService.getById(id);
     }
 
    
     @PostMapping("/operations")
-     @Operation(summary = "Creer ou mettre à jour une operation", description = "Ajoute ou met e jour une opération bancaire")
-    @ApiResponse(responseCode = "200", description = "Opération créée ou mise à jour avec succès")
-    @ApiResponse(responseCode = "400", description = "Données invalides fournies")
+     @Operation(summary = "Creer ou mettre a jour une operation", description = "Ajoute ou met a jour une oparation bancaire")
+    @ApiResponse(responseCode = "200", description = "Operation creee ou mise a jour avec succes")
+    @ApiResponse(responseCode = "400", description = "DonnÃ©es invalides fournies")
     public OperationBancaire createOrUpdateOperation(@RequestBody OperationBancaire operation) {
         return operationService.saveOrUpdate(operation);
     }
@@ -61,15 +61,15 @@ public class OperationBancaireController {
 
     @DeleteMapping("/operations/delete/{id}")
     @Operation(summary = "Supprimer une operation", description = "Supprime une operation bancaire par son identifiant")
-    @ApiResponse(responseCode = "200", description = "Opération supprimée avec succès")
-    @ApiResponse(responseCode = "404", description = "Opération non trouvée")
+    @ApiResponse(responseCode = "200", description = "Operation supprimee avec succes")
+    @ApiResponse(responseCode = "404", description = "Operation non trouvee")
     public void deleteOperation(@PathVariable("id") Long id) throws OperationNotFoundException {
         operationService.deleteOperationByIdCompte(id);
     }
 
 
     @PostMapping("/comptes/{id}/operations")
-     @Operation(summary = "Ajouter une operation à un compte", description = "Ajoute une nouvelle opération à un compte bancaire donne")
+     @Operation(summary = "Ajouter une operation a un compte", description = "Ajoute une nouvelle operation Ã  un compte bancaire donne")
     @ApiResponse(responseCode = "200", description = "Operation enregistree avec succes pour le compte")
     @ApiResponse(responseCode = "404", description = "Compte non trouve")
     public OperationBancaire saveOperationForCompte(@PathVariable("id") Long id,
