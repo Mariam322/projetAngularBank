@@ -17,23 +17,23 @@ import java.util.List;
 )
 public interface FactureController {
 
-    // Créer une nouvelle facture
+
     @PostMapping("/facture/create")
     FactureResponse createFacture(@RequestBody CreateFactureRequest createFactureRequest);
 
-    // Récupérer une facture par son ID
+
     @GetMapping("/facture/getById/{id}")
     FactureResponse getById(@PathVariable("id") Long id);
 
-    // Récupérer toutes les factures
+
     @GetMapping("/facture/getAll")
     List<FactureResponse> getAll();
 
-    // Mettre à jour une facture
+
     @PutMapping("/facture/update/{id}")
     FactureResponse updateFacture(@PathVariable("id") Long id, @RequestBody UpdateFactureRequest updateFactureRequest);
 
-    // Supprimer une facture par son ID
+
     @DeleteMapping("/facture/delete/{id}")
     void deleteFacture(@PathVariable("id") Long id);
 }
