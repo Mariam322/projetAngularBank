@@ -17,23 +17,23 @@ import java.util.List;
 )
 public interface OperationBnacaireController {
 
-    // Créer une nouvelle opération bancaire
+
     @PostMapping("/operations")
     OperationResponse createOperation(@RequestBody CreateOperationRequest createOperationRequest);
 
-    // Récupérer une opération par ID
+
     @GetMapping("/operations/{id}")
     OperationResponse getById(@PathVariable("id") Long id);
 
-    // Récupérer toutes les opérations
+
     @GetMapping("/operations")
     List<OperationResponse> getAll();
 
-    // Mettre à jour une opération
+
     @PutMapping("/operations/{id}")
     OperationResponse updateOperation(@PathVariable("id") Long id, @RequestBody UpdateOperationRequest updateOperationRequest);
 
-    // Supprimer une opération
+
     @DeleteMapping("/operations/delete/{id}")
     void deleteOperation(@PathVariable("id") Long id);
 }
