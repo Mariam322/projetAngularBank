@@ -28,7 +28,7 @@ public class SwaggerConfig {
                     String name = routeDefinition.getId().replaceAll("SERVICE", "").toLowerCase();
                     groups.add(GroupedOpenApi.builder()
                         .pathsToMatch("/" + name + "/**")
-                        .group(name)  // Changé de setGroup() à group()
+                        .group(name) 
                         .build());
                 });
         }
