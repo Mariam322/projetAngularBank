@@ -22,7 +22,7 @@ pipeline {
                     steps {
                         withMaven(maven: 'maven-3.6.3') {
                             dir('EurekaCompain') {  
-                                sh '$MVN_CM Dmvn clean package -DskipTests'
+                                sh 'mvn clean package -DskipTests'
                             }
                         }
                     }
@@ -32,7 +32,7 @@ pipeline {
                     steps {
                         withMaven(maven: 'maven-3.6.3') {
                             dir('Gatway') {  
-                                sh '$MVN_CMD mvn clean package -DskipTests'
+                                sh 'mvn clean package -DskipTests'
                             }
                         }
                     }
@@ -42,7 +42,7 @@ pipeline {
                     steps {
                         withMaven(maven: 'maven-3.6.3') {
                             dir('ProjetCompain') {  
-                                sh '$MVN_CMD mvn clean package -DskipTests'
+                                sh 'mvn clean package -DskipTests'
                             }
                         }
                     }
@@ -52,7 +52,7 @@ pipeline {
                     steps {
                         withMaven(maven: 'maven-3.6.3') {
                             dir('Facturation') {  
-                                sh '$MVN_CMD mvn clean package -DskipTests'
+                                sh 'mvn clean package -DskipTests'
                             }
                         }
                     }
@@ -62,7 +62,7 @@ pipeline {
                     steps {
                         withMaven(maven: 'maven-3.6.3') {
                             dir('Depense') {  
-                                sh '$MVN_CMD mvn clean package -DskipTests'
+                                sh 'mvn clean package -DskipTests'
                             }
                         }
                     }
@@ -72,7 +72,7 @@ pipeline {
                     steps {
                         withMaven(maven: 'maven-3.6.3') {
                             dir('BanqueService') {  
-                                sh '$MVN_CMD mvn clean package -DskipTests'
+                                sh 'mvn clean package -DskipTests'
                             }
                         }
                     }
@@ -82,7 +82,7 @@ pipeline {
                     steps {
                         withMaven(maven: 'maven-3.6.3') {
                             dir('ReglementAffectation') {  
-                                sh '$MVN_CMD mvn clean package -DskipTests'
+                                sh 'mvn clean package -DskipTests'
                             }
                         }
                     }
@@ -92,7 +92,7 @@ pipeline {
                     steps {
                         withMaven(maven: 'maven-3.6.3') {
                             dir('Documents') {  
-                                sh '$MVN_CMD mvn clean package -DskipTests'
+                                sh 'mvn clean package -DskipTests'
                             }
                         }
                     }
