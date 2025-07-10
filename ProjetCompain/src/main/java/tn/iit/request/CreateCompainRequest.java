@@ -13,7 +13,7 @@ public class CreateCompainRequest {
     private String pays;
     private String ville;
     private TypeClientFournisseur type;
-    private Date createdAt; // ajouté ici
+    private Date createdAt;
  private Date updatedAt;
     // Getters & Setters
 
