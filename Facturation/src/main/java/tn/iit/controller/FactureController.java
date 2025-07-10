@@ -73,7 +73,7 @@ public class FactureController {
         this.streamBridge=streamBridge;
        
         
-        // Créer le répertoire s'il n'existe pas
+        // CrÃ©er le rÃ©pertoire s'il n'existe pas
         try {
             Files.createDirectories(Paths.get(PDF_DIRECTORY));
         } catch (Exception e) {
@@ -90,7 +90,7 @@ public class FactureController {
             String pdfPath = PDF_DIRECTORY + "facture_" + id + ".pdf";
             
             // Generate PDF (simulated for now - you'll need to implement this properly)
-            Files.write(Paths.get(pdfPath), "Contenu PDF simulé".getBytes());
+            Files.write(Paths.get(pdfPath), "Contenu PDF simulÃ©".getBytes());
 
             // Upload to Google Drive
             String driveFileId = googleDriveService.uploadFile(pdfPath, "facture_"+id+".pdf");
@@ -116,7 +116,7 @@ public class FactureController {
 public void handlePdfUpload(@RequestBody PdfUploadRequest request) {
     // Validation
     if (request.getFactureId() == null || request.getContent() == null) {
-        throw new IllegalArgumentException("Données manquantes");
+        throw new IllegalArgumentException("DonnÃ©es manquantes");
     }
 
     // Envoyer via Kafka
@@ -133,41 +133,41 @@ public void handlePdfUpload(@RequestBody PdfUploadRequest request) {
 static class PdfUploadRequest {
     private Long factureId;
     private String fileName;
-    private String content; // Base64 sans préfixe
+    private String content; // Base64 sans prÃ©fixe
     private String type;
 }
 
 
    @PostMapping("/facture/{id}/generate-pdf")
-   @Operation(summary = "Générer un PDF de facture", 
-               description = "Génère un PDF pour une facture spécifique")
-    @ApiResponse(responseCode = "200", description = "PDF en cours de génération")
-    @ApiResponse(responseCode = "500", description = "Erreur de génération")
-    @ApiResponse(responseCode = "404", description = "Facture non trouvée")
+   @Operation(summary = "Generer un PDF de facture", 
+               description = "Genere un PDF pour une facture specifique")
+    @ApiResponse(responseCode = "200", description = "PDF en cours de generation")
+    @ApiResponse(responseCode = "500", description = "Erreur de generation")
+    @ApiResponse(responseCode = "404", description = "Facture non trouvee")
     public ResponseEntity<Map<String, String>> generatePdf(@PathVariable Long id) {
     try {
         factureService.generateAndSendPdf(id);
         return ResponseEntity.ok(
-            Map.of("message", "PDF en cours de génération et stockage")
+            Map.of("message", "PDF en cours de generation et stockage")
         );
     } catch (IOException e) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-            .body(Map.of("error", "Erreur génération PDF"));
+            .body(Map.of("error", "Erreur generation PDF"));
     }
 }
 
    @GetMapping(value = "/{id}/download", produces = MediaType.APPLICATION_PDF_VALUE)
-    @Operation(summary = "Télécharger le PDF d'une facture", 
-               description = "Télécharge le PDF d'une facture spécifique")
-    @ApiResponse(responseCode = "200", description = "PDF téléchargé avec succès",
+    @Operation(summary = "Telecharger le PDF d'une facture", 
+               description = "Telecharge le PDF d'une facture specifique")
+    @ApiResponse(responseCode = "200", description = "PDF telecharge avec succes",
                 content = @Content(mediaType = "application/pdf"))
-    @ApiResponse(responseCode = "404", description = "Facture non trouvée")
+    @ApiResponse(responseCode = "404", description = "Facture non trouvee")
     @ApiResponse(responseCode = "500", description = "Erreur de serveur")
 public ResponseEntity<Resource> downloadPdf(@PathVariable Long id) {
     try {
         ResponseEntity<Resource> response = factureService.downloadPdf(id);
         
-        // Ajoute des headers supplémentaires
+        // Ajoute des headers supplÃ©mentaires
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "inline; filename=facture_" + id + ".pdf");
         headers.setCacheControl("no-cache, no-store, must-revalidate");
@@ -180,7 +180,7 @@ public ResponseEntity<Resource> downloadPdf(@PathVariable Long id) {
                 .body(response.getBody());
                 
     } catch (Exception e) {
-        logger.error("Erreur téléchargement PDF", e);
+        logger.error("Erreur tÃ©lÃ©chargement PDF", e);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(new ByteArrayResource(("Erreur: " + e.getMessage()).getBytes()));
     }
@@ -188,12 +188,12 @@ public ResponseEntity<Resource> downloadPdf(@PathVariable Long id) {
 
 
     @PostMapping("/facture/create")
-    @Operation(summary = "Créer une nouvelle facture", 
-               description = "Crée une nouvelle facture avec les données fournies")
-    @ApiResponse(responseCode = "200", description = "Facture créée avec succès",
+    @Operation(summary = "Creer une nouvelle facture", 
+               description = "Cree une nouvelle facture avec les donnees fournies")
+    @ApiResponse(responseCode = "200", description = "Facture creee avec suces",
                 content = @Content(schema = @Schema(implementation = FactureResponse.class)))
-    @ApiResponse(responseCode = "400", description = "Données invalides")
-    @ApiResponse(responseCode = "401", description = "Non autorisé")
+    @ApiResponse(responseCode = "400", description = "Donnees invalides")
+    @ApiResponse(responseCode = "401", description = "Non autorisÃ©")
     public FactureResponse createFacture(@RequestBody CreateFactureRequest createFactureRequest) {
         logger.info("Received request to create facture: {}", createFactureRequest);
         FactureResponse response = factureService.createFacture(createFactureRequest);
@@ -203,9 +203,9 @@ public ResponseEntity<Resource> downloadPdf(@PathVariable Long id) {
 
     @GetMapping("/facture/getById/{id}")
     @Operation(summary = "Obtenir une facture par ID", 
-               description = "Récupère les détails d'une facture spécifique")
-    @ApiResponse(responseCode = "200", description = "Facture trouvée")
-    @ApiResponse(responseCode = "404", description = "Facture non trouvée")
+               description = "Recupere les dÃ©tails d'une facture specifique")
+    @ApiResponse(responseCode = "200", description = "Facture trouvee")
+    @ApiResponse(responseCode = "404", description = "Facture non trouvee")
     public FactureResponse getById(@PathVariable Long id) {
         logger.info("Fetching facture with ID: {}", id);
         return factureService.getFactureById(id);
@@ -213,7 +213,7 @@ public ResponseEntity<Resource> downloadPdf(@PathVariable Long id) {
 
     @GetMapping("/facture/getAll")
     @Operation(summary = "Lister toutes les factures", 
-               description = "Récupère la liste complète des factures")
+               description = "Recupere la liste complete des factures")
     @ApiResponse(responseCode = "200", description = "Liste des factures",
                 content = @Content(schema = @Schema(implementation = FactureResponse.class)))
     public List<FactureResponse> getAll() {
@@ -222,12 +222,12 @@ public ResponseEntity<Resource> downloadPdf(@PathVariable Long id) {
     }
 
     @PutMapping("/facture/update/{id}")
-    @Operation(summary = "Mettre à jour une facture", 
-               description = "Met à jour les informations d'une facture existante")
-    @ApiResponse(responseCode = "200", description = "Facture mise à jour",
+    @Operation(summary = "Mettre a jour une facture", 
+               description = "Met a jour les informations d'une facture existante")
+    @ApiResponse(responseCode = "200", description = "Facture mise a jour",
                 content = @Content(schema = @Schema(implementation = FactureResponse.class)))
-    @ApiResponse(responseCode = "404", description = "Facture non trouvée")
-    @ApiResponse(responseCode = "400", description = "Données invalides")
+    @ApiResponse(responseCode = "404", description = "Facture non trouvee")
+    @ApiResponse(responseCode = "400", description = "DonnÃ©es invalides")
     public FactureResponse updateFacture(@PathVariable Long id, @RequestBody UpdateFactureRequest updateFactureRequest) {
         logger.info("Updating facture with ID: {}", id);
         return factureService.updateFacture(id, updateFactureRequest);
@@ -236,8 +236,8 @@ public ResponseEntity<Resource> downloadPdf(@PathVariable Long id) {
     @DeleteMapping("/facture/delete/{id}")
      @Operation(summary = "Supprimer une facture", 
                description = "Supprime une facture existante")
-    @ApiResponse(responseCode = "200", description = "Facture supprimée")
-    @ApiResponse(responseCode = "404", description = "Facture non trouvée")
+    @ApiResponse(responseCode = "200", description = "Facture supprimee")
+    @ApiResponse(responseCode = "404", description = "Facture non trouvee")
     public void deleteFacture(@PathVariable Long id) {
         logger.info("Deleting facture with ID: {}", id);
         factureService.deleteFacture(id);
@@ -248,22 +248,22 @@ public ResponseEntity<Resource> downloadPdf(@PathVariable Long id) {
    
 
     @PutMapping("/facture/{id}/statut")
-    @Operation(summary = "Mettre à jour le statut d'une facture", 
+    @Operation(summary = "Mettre a jour le statut d'une facture", 
                description = "Modifie le statut d'une facture existante")
-    @ApiResponse(responseCode = "200", description = "Statut mis à jour",
+    @ApiResponse(responseCode = "200", description = "Statut mis a jour",
                 content = @Content(schema = @Schema(implementation = FactureResponse.class)))
-    @ApiResponse(responseCode = "404", description = "Facture non trouvée")
+    @ApiResponse(responseCode = "404", description = "Facture non trouvÃ©e")
 public FactureResponse updateStatut(@PathVariable Long id, 
                                   @RequestParam StatutFacture statut) {
     return factureService.updateStatut(id, statut);
 }
 
 @PutMapping("/facture/{id}/montant-restant")
- @Operation(summary = "Mettre à jour le montant restant", 
-               description = "Modifie le montant restant à payer d'une facture")
-    @ApiResponse(responseCode = "200", description = "Montant mis à jour",
+ @Operation(summary = "Mettre Ã  jour le montant restant", 
+               description = "Modifie le montant restant Ã  payer d'une facture")
+    @ApiResponse(responseCode = "200", description = "Montant mis a jour",
                 content = @Content(schema = @Schema(implementation = FactureResponse.class)))
-    @ApiResponse(responseCode = "404", description = "Facture non trouvée")
+    @ApiResponse(responseCode = "404", description = "Facture non trouvÃ©e")
 public FactureResponse updateMontantRestant(@PathVariable Long id, 
                                           @RequestParam Double montant) {
     return factureService.updateMontantRestant(id, montant);
@@ -272,10 +272,10 @@ public FactureResponse updateMontantRestant(@PathVariable Long id,
 
  @GetMapping("/facture/by-company/{companyId}")
 @Operation(summary = "Obtenir les factures par entreprise", 
-           description = "Récupère les factures associées à une entreprise spécifique")
-@ApiResponse(responseCode = "200", description = "Liste des factures trouvées",
+           description = "Recupere les factures associees Ã  une entreprise specifique")
+@ApiResponse(responseCode = "200", description = "Liste des factures trouvÃ©ees",
             content = @Content(array = @ArraySchema(schema = @Schema(implementation = FactureResponse.class))))
-@ApiResponse(responseCode = "404", description = "Aucune facture trouvée")
+@ApiResponse(responseCode = "404", description = "Aucune facture trouvee")
 public ResponseEntity<List<FactureResponse>> getFacturesByCompanyId(
         @PathVariable Long companyId) {
     
