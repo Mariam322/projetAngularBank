@@ -26,11 +26,11 @@ public class DocumentListener {
 	private final DocumentService documentService;
 
 @Bean
-public Consumer<Message<Map<String, Object>>> processPdf() {  // Notez le Message<> ajouté
+public Consumer<Message<Map<String, Object>>> processPdf() {
     return message -> {
         try {
             Map<String, Object> event = message.getPayload();
-            log.info("Message reçu - Headers: {}", message.getHeaders());
+            log.info("Message reÃ§u - Headers: {}", message.getHeaders());
             
             Long factureId = Long.parseLong(event.get("factureId").toString());
             String fileName = event.get("fileName").toString();
