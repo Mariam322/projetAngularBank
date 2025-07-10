@@ -17,23 +17,22 @@ import java.util.List;
 )
 public interface DepenseController {
 
-    // Créer une nouvelle dépense
+
     @PostMapping("/create")
     DepenseResponse createDepense(@RequestBody CreateDepenseRequest createDepenseRequest);
 
-    // Récupérer une dépense par ID
     @GetMapping("/getById/{id}")
     DepenseResponse getById(@PathVariable("id") Long id);
 
-    // Récupérer toutes les dépenses
+
     @GetMapping("/getAll")
     List<DepenseResponse> getAll();
 
-    // Mettre à jour une dépense
+
     @PutMapping("/update/{id}")
     DepenseResponse updateDepense(@PathVariable("id") Long id, @RequestBody UpdateDepenseRequest updateDepenseRequest);
 
-    // Supprimer une dépense
+
     @DeleteMapping("/delete/{id}")
     void deleteDepense(@PathVariable("id") Long id);
 }
