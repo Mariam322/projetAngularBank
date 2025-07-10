@@ -6,7 +6,9 @@ pipeline {
     }
 
     environment {
-        DOCKER_REGISTRY = 'mariammseddi12' 
+        DOCKER_REGISTRY = 'mariammseddi12'
+        JENKINS_NOOP = "true"  // Option de secours
+        JENKINS_OPTS = "-Dorg.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL=300"
     }
 
     stages {
