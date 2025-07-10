@@ -156,7 +156,7 @@ pipeline {
                 stage('Build ReglemetnAffecatation Image') {
                     steps {
                         dir('ReglementAffectation') {
-                            sh "docker build -t  mariammseddi12/ReglemetnAffecatation-service ."
+                            sh "docker build -t  mariammseddi12/reglemetnaffecatation-service ."
                         }
                     }
                 }
@@ -186,7 +186,7 @@ pipeline {
                     sh "docker push mariammseddi12/facturation-service"
                     sh "docker push mariammseddi12/depense-service"
                     sh "docker push mariammseddi12/bank-service"
-                    sh "docker push mariammseddi12/ReglemetnAffecatation-service"
+                    sh "docker push mariammseddi12/reglemetnaffecatation-service"
                     sh "docker push mariammseddi12/document-service"
                 }
             }
