@@ -121,7 +121,7 @@ public class CompainService implements ICompainService {
     @Override
     public List<CompainResponse> getCompainsByType(TypeClientFournisseur type) {
         List<Compain> compains = compainRepository.findByType(type);
-        // Convertir la liste d'entités en liste de réponses DTO
+
         return compains.stream()
                       .map(CompainResponse::new)
                       .collect(Collectors.toList());
