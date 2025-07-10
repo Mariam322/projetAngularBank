@@ -19,7 +19,6 @@ services:
     hostname: m1.systeo.tn
     ports:
       - "9090:9090"
- 
     environment:
       - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://eureka-server:8761/eureka/
     depends_on:
@@ -33,7 +32,6 @@ services:
     hostname: m2.systeo.tn
     ports:
       - "8082:8082"
-    
     environment:
       - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://eureka-server:8761/eureka/
     depends_on:
@@ -47,7 +45,6 @@ services:
     hostname: m5.systeo.tn
     ports:
       - "8024:8024"
-    
     environment:
       - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://eureka-server:8761/eureka/
     depends_on:
@@ -61,7 +58,7 @@ services:
     hostname: m4.systeo.tn
     ports:
       - "8022:8022"
-  environment:
+    environment:
       - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://eureka-server:8761/eureka/
     depends_on:
       - eureka-server
@@ -74,7 +71,7 @@ services:
     hostname: m3.systeo.tn
     ports:
       - "8021:8021"
-  environment:
+    environment:
       - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://eureka-server:8761/eureka/
     depends_on:
       - eureka-server
@@ -87,21 +84,20 @@ services:
     hostname: m6.systeo.tn
     ports:
       - "8025:8025"
-  environment:
+    environment:
       - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://eureka-server:8761/eureka/
     depends_on:
       - eureka-server
     networks:
       - systeo-network
 
-
- document-service:
+  document-service:
     image: mariammseddi12/document-service
     container_name: document-service
     hostname: m7.systeo.tn
     ports:
       - "8023:8023"
-  environment:
+    environment:
       - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://eureka-server:8761/eureka/
     depends_on:
       - eureka-server
