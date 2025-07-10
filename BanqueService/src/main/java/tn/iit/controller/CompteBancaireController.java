@@ -19,22 +19,22 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @AllArgsConstructor
 @Slf4j
-@Tag(name = "Gestion des comptes bancaires", description = "API pour les opérations sur les comptes bancaires")
+@Tag(name = "Gestion des comptes bancaires", description = "API pour les operations sur les comptes bancaires")
 public class CompteBancaireController {
 
     private final CompteBancaireService compteService;
 
-  @Operation(summary = "Lister tous les comptes", description = "Récupérer la liste de tous les comptes bancaires")
-    @ApiResponse(responseCode = "200", description = "Liste des comptes récupérée avec succès")
-    @ApiResponse(responseCode = "401", description = "Non autorisé")
+  @Operation(summary = "Lister tous les comptes", description = "Recuperer la liste de tous les comptes bancaires")
+    @ApiResponse(responseCode = "200", description = "Liste des comptes recuperee avec succes")
+    @ApiResponse(responseCode = "401", description = "Non autorisÃ©")
     @GetMapping("/comptes")
     public List<CompteBancaire> getAllComptes() {
         return compteService.findAll();
     }
- @Operation(summary = "Obtenir un compte par ID", description = "Récupérer les détails d'un compte bancaire en utilisant son identifiant")
-    @ApiResponse(responseCode = "200", description = "Compte trouvé")
-    @ApiResponse(responseCode = "404", description = "Compte non trouvé")
-    @ApiResponse(responseCode = "401", description = "Non autorisé")
+ @Operation(summary = "Obtenir un compte par ID", description = "Recuperer les details d'un compte bancaire en utilisant son identifiant")
+    @ApiResponse(responseCode = "200", description = "Compte trouve")
+    @ApiResponse(responseCode = "404", description = "Compte non trouve")
+    @ApiResponse(responseCode = "401", description = "Non autorise")
 
     @GetMapping("/comptes/{id}")
     public CompteBancaire getCompteById(@PathVariable("id") Long id) throws CompteNotFoundException {
@@ -42,9 +42,9 @@ public class CompteBancaireController {
     }
     
      @Operation(summary = "Creer un nouveau compte", description = "Ajouter un nouveau compte bancaire")
-    @ApiResponse(responseCode = "200", description = "Compte créé avec succès")
-    @ApiResponse(responseCode = "400", description = "Requête invalide")
-    @ApiResponse(responseCode = "401", description = "Non autorisé")
+    @ApiResponse(responseCode = "200", description = "Compte cree avec succes")
+    @ApiResponse(responseCode = "400", description = "Requete invalide")
+    @ApiResponse(responseCode = "401", description = "Non autorise")
 
     @PostMapping("/comptes")
     public CompteBancaire createOrUpdateCompte(@RequestBody CompteBancaire compte) {
@@ -52,20 +52,20 @@ public class CompteBancaireController {
     }
 
 @PutMapping("/comptes/{id}")
- @Operation(summary = "Mettre a jour un compte", description = "Modifier les informations d’un compte existant")
-    @ApiResponse(responseCode = "200", description = "Compte mis à jour avec succès")
-    @ApiResponse(responseCode = "404", description = "Compte non trouvé")
-    @ApiResponse(responseCode = "401", description = "Non autorisé")
+ @Operation(summary = "Mettre a jour un compte", description = "Modifier les informations dâ€™un compte existant")
+    @ApiResponse(responseCode = "200", description = "Compte mis e jour avec succes")
+    @ApiResponse(responseCode = "404", description = "Compte non trouve")
+    @ApiResponse(responseCode = "401", description = "Non autorise")
 public CompteBancaire updateCompte(@PathVariable("id") Long compteId, @RequestBody CompteBancaire updatedCompte)
         throws CompteNotFoundException {
     
     CompteBancaire existingCompte = compteService.getById(compteId);
 
-    // Mise à jour des champs autorisés
+    // Mise Ã  jour des champs autorisÃ©s
     existingCompte.setNumeroCompte(updatedCompte.getNumeroCompte());
     existingCompte.setNomBanque(updatedCompte.getNomBanque());
 
-    // Optionnel : si tu veux permettre la mise à jour des opérations
+    // Optionnel : si tu veux permettre la mise Ã  jour des opÃ©rations
     // existingCompte.setOperationBancaire(updatedCompte.getOperationBancaire());
 
     return compteService.saveOrUpdate(existingCompte);
@@ -74,9 +74,9 @@ public CompteBancaire updateCompte(@PathVariable("id") Long compteId, @RequestBo
 
     @DeleteMapping("/comptes/delete/{id}")
      @Operation(summary = "Supprimer un compte", description = "Supprimer un compte bancaire existant")
-    @ApiResponse(responseCode = "200", description = "Compte supprimé avec succès")
-    @ApiResponse(responseCode = "404", description = "Compte non trouvé")
-    @ApiResponse(responseCode = "401", description = "Non autorisé")
+    @ApiResponse(responseCode = "200", description = "Compte supprime avec succes")
+    @ApiResponse(responseCode = "404", description = "Compte non trouvÃ©")
+    @ApiResponse(responseCode = "401", description = "Non autorisÃ©")
     public void deleteCompte(@PathVariable("id") Long id) throws CompteNotFoundException {
         compteService.delete(id);
     }
