@@ -307,7 +307,7 @@ public class DocumentResponse {
 		}
 	  	
 	  	
-	  // Méthode utilitaire pour convertir une liste de Document en liste de DocumentResponse
+	 
 public static List<DocumentResponse> toArrayList(List<Document> documents) {
     List<DocumentResponse> responseList = new ArrayList<>();
     for (Document doc : documents) {
