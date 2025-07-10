@@ -81,9 +81,9 @@ services:
     networks:
       - systeo-network
 
-  ReglemetnAffecatation-service:
-    image: mariammseddi12/ReglemetnAffecatation-service
-    container_name: ReglemetnAffecatation-service
+  reglemetnaffecatation-service:
+    image: mariammseddi12/reglemetnaffecatation-service
+    container_name: reglemetnaffecatation-service
     hostname: m6.systeo.tn
     ports:
       - "8025:8025"
