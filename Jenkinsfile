@@ -198,10 +198,16 @@ pipeline {
             }
         }
     }
-      post {
-        always {
-            junit testResults: '**/target/surefire-reports/*.xml', allowEmptyResults: true
+     post {
+    always {
+        script {
+            try {
+                junit testResults: '**/target/surefire-reports/*.xml', allowEmptyResults: true
+            } catch (e) {
+                echo "Pas de tests à publier – on continue sans erreur."
+            }
         }
     }
+     
+     }
 }
-
