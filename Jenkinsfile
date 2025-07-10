@@ -3,6 +3,7 @@ pipeline {
 
     tools {
         jdk 'jdk-17'
+        maven 'maven-3.8.6'
     }
 
     environment {
@@ -22,7 +23,7 @@ pipeline {
             parallel {
                 stage('Build Eureka') {
                     steps {
-                        withMaven(maven: 'maven-3.6.3') {
+                        withMaven(maven: 'maven-3.8.6') {
                             dir('EurekaCompain') {  
                                 sh 'mvn clean package -DskipTests'
                             }
@@ -32,7 +33,7 @@ pipeline {
 
                 stage('Build Gateway') {
                     steps {
-                        withMaven(maven: 'maven-3.6.3') {
+                        withMaven(maven: 'maven-3.8.6') {
                             dir('Gatway') {  
                                 sh 'mvn clean package -DskipTests'
                             }
@@ -42,7 +43,7 @@ pipeline {
 
                 stage('Build Compain Service') {
                     steps {
-                        withMaven(maven: 'maven-3.6.3') {
+                        withMaven(maven: 'maven-3.8.6') {
                             dir('ProjetCompain') {  
                                 sh 'mvn clean package -DskipTests'
                             }
@@ -52,7 +53,7 @@ pipeline {
 
                 stage('Build Facturation Service') {
                     steps {
-                        withMaven(maven: 'maven-3.6.3') {
+                        withMaven(maven: 'maven-3.8.6') {
                             dir('Facturation') {  
                                 sh 'mvn clean package -DskipTests'
                             }
@@ -62,7 +63,7 @@ pipeline {
 
                 stage('Build Depense Service') {
                     steps {
-                        withMaven(maven: 'maven-3.6.3') {
+                        withMaven(maven: 'maven-3.8.6') {
                             dir('Depense') {  
                                 sh 'mvn clean package -DskipTests'
                             }
@@ -72,7 +73,7 @@ pipeline {
 
                 stage('Build Bank Service') {
                     steps {
-                        withMaven(maven: 'maven-3.6.3') {
+                        withMaven(maven: 'maven-3.8.6') {
                             dir('BanqueService') {  
                                 sh 'mvn clean package -DskipTests'
                             }
@@ -82,7 +83,7 @@ pipeline {
 
                 stage('Build ReglementAffectation Service') {
                     steps {
-                        withMaven(maven: 'maven-3.6.3') {
+                        withMaven(maven: 'maven-3.8.6') {
                             dir('ReglementAffectation') {  
                                 sh 'mvn clean package -DskipTests'
                             }
@@ -92,7 +93,7 @@ pipeline {
 
                 stage('Build Documents Service') {
                     steps {
-                        withMaven(maven: 'maven-3.6.3') {
+                        withMaven(maven: 'maven-3.8.6') {
                             dir('Documents') {  
                                 sh 'mvn clean package -DskipTests'
                             }
