@@ -60,22 +60,14 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
     </dependency>
-<!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui -->
-<!-- Dépendances existantes... -->
 
-<!-- Ajouter ces dépendances -->
 <dependency>
     <groupId>org.springdoc</groupId>
     <artifactId>springdoc-openapi-starter-webflux-ui</artifactId>
     <version>2.5.0</version>
 </dependency>
 
-<dependency>
-    <groupId>org.springdoc</groupId>
-    <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-    <version>2.5.0</version>
-    <scope>runtime</scope>
-</dependency>
+
     <!-- OAuth2 Client (pour PKCE Flow) -->
     <dependency>
         <groupId>org.springframework.boot</groupId>
