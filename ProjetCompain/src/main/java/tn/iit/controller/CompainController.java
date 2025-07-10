@@ -37,23 +37,23 @@ public class CompainController {
 
 @PostMapping("/compain/add")
 @Operation(summary = "Creer une nouvelle compagnie", 
-               description = "Permet de créer une nouvelle compagnie avec les informations fournies")
-    @ApiResponse(responseCode = "200", description = "Compagnie créée avec succès",
+               description = "Permet de creer une nouvelle compagnie avec les informations fournies")
+    @ApiResponse(responseCode = "200", description = "Compagnie creee avec succes",
                 content = @Content(schema = @Schema(implementation = CompainResponse.class)))
-    @ApiResponse(responseCode = "400", description = "Données invalides fournies")
-    @ApiResponse(responseCode = "401", description = "Non autorisé")
-    @ApiResponse(responseCode = "403", description = "Accès refusé")
+    @ApiResponse(responseCode = "400", description = "Donnees invalides fournies")
+    @ApiResponse(responseCode = "401", description = "Non autorise")
+    @ApiResponse(responseCode = "403", description = "Acces refuse")
     public CompainResponse createCompain(@RequestBody CreateCompainRequest createCompainRequest) {
         return compainService.createCompain(createCompainRequest);
     }
 
     @GetMapping("/compain/{id}")
       @Operation(summary = "Recuperer une compagnie par ID", 
-               description = "Obtenir les détails d'une compagnie spécifique par son identifiant")
-    @ApiResponse(responseCode = "200", description = "Compagnie trouvée",
+               description = "Obtenir les details d'une compagnie specifique par son identifiant")
+    @ApiResponse(responseCode = "200", description = "Compagnie trouvee",
                 content = @Content(schema = @Schema(implementation = CompainResponse.class)))
-    @ApiResponse(responseCode = "404", description = "Compagnie non trouvée")
-    @ApiResponse(responseCode = "401", description = "Non autorisé")
+    @ApiResponse(responseCode = "404", description = "Compagnie non trouvee")
+    @ApiResponse(responseCode = "401", description = "Non autorise")
     public CompainResponse getById(@PathVariable long id) {
         return compainService.getById(id);
     }
@@ -62,24 +62,24 @@ public class CompainController {
 @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
         @GetMapping("/compain")
             @Operation(summary = "Lister toutes les compagnies", 
-               description = "Obtenir la liste complète de toutes les compagnies disponibles")
-    @ApiResponse(responseCode = "200", description = "Liste des compagnies récupérée avec succès",
+               description = "Obtenir la liste complete de toutes les compagnies disponibles")
+    @ApiResponse(responseCode = "200", description = "Liste des compagnies rÃ©cuperee avec succes",
                 content = @Content(schema = @Schema(implementation = CompainResponse.class)))
-    @ApiResponse(responseCode = "401", description = "Non autorisé")
-    @ApiResponse(responseCode = "403", description = "Accès refusé")
+    @ApiResponse(responseCode = "401", description = "Non autorise")
+    @ApiResponse(responseCode = "403", description = "Acces refuse")
     public List<CompainResponse> getAll() {
         return compainService.getAllCompains();
     }
 
     @PutMapping("/compain/update/{id}")
                 @Operation(summary = "Modifier une compagnie", 
-               description = "Mettre à jour les informations d'une compagnie existante")
-    @ApiResponse(responseCode = "200", description = "Compagnie mise à jour avec succès",
+               description = "Mettre a jour les informations d'une compagnie existante")
+    @ApiResponse(responseCode = "200", description = "Compagnie mise a jour avec succes",
                 content = @Content(schema = @Schema(implementation = CompainResponse.class)))
-    @ApiResponse(responseCode = "400", description = "Données invalides fournies")
-    @ApiResponse(responseCode = "404", description = "Compagnie non trouvée")
-    @ApiResponse(responseCode = "401", description = "Non autorisé")
-    @ApiResponse(responseCode = "403", description = "Accès refusé")
+    @ApiResponse(responseCode = "400", description = "Donnees invalides fournies")
+    @ApiResponse(responseCode = "404", description = "Compagnie non trouvee")
+    @ApiResponse(responseCode = "401", description = "Non autorise")
+    @ApiResponse(responseCode = "403", description = "Acces refuse")
     public CompainResponse updateCompain(@PathVariable("id") long id, @RequestBody UpdateCompainRequest updateCompainRequest) {
         logger.info("Received request to update compain with ID: {}", id);
         return compainService.updateCompain(id, updateCompainRequest);
@@ -88,20 +88,20 @@ public class CompainController {
     @DeleteMapping("/compain/delete/{id}")
     @Operation(summary = "Supprimer une compagnie", 
                description = "Supprimer une compagnie existante par son identifiant")
-    @ApiResponse(responseCode = "200", description = "Compagnie supprimée avec succès")
-    @ApiResponse(responseCode = "404", description = "Compagnie non trouvée")
-    @ApiResponse(responseCode = "401", description = "Non autorisé")
-    @ApiResponse(responseCode = "403", description = "Accès refusé")
+    @ApiResponse(responseCode = "200", description = "Compagnie supprimee avec succes")
+    @ApiResponse(responseCode = "404", description = "Compagnie non trouvee")
+    @ApiResponse(responseCode = "401", description = "Non autorise")
+    @ApiResponse(responseCode = "403", description = "AccÃ¨s refuse")
     public void deleteCompain(@PathVariable long id) {
         compainService.deleteCompain(id);
     }
      @GetMapping("/compain/type/{type}")
                  @Operation(summary = "Recuperer les compagnies par type", 
-               description = "Obtenir la liste des compagnies filtrées par type (client/fournisseur)")
-    @ApiResponse(responseCode = "200", description = "Liste des compagnies filtrées par type",
+               description = "Obtenir la liste des compagnies filtrees par type (client/fournisseur)")
+    @ApiResponse(responseCode = "200", description = "Liste des compagnies filtrees par type",
                 content = @Content(schema = @Schema(implementation = CompainResponse.class)))
     @ApiResponse(responseCode = "400", description = "Type invalide")
-    @ApiResponse(responseCode = "401", description = "Non autorisé")
+    @ApiResponse(responseCode = "401", description = "Non autorisÃ©")
     public List<CompainResponse> getCompainsByType(@PathVariable TypeClientFournisseur type) {
         return compainService.getCompainsByType(type);
     }
