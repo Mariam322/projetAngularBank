@@ -23,8 +23,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import tn.iit.entites.TypeDocument;
 
-import com.google.auth.oauth2.GoogleCredentials;
-import com.google.api.services.drive.DriveScopes;
 import org.springframework.core.io.ClassPathResource;
 import tn.iit.repository.DocumentRepository;
 import tn.iit.request.CreateDocumentRequest;
