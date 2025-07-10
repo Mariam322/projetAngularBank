@@ -118,12 +118,11 @@ public AffectationResponse affecterAOperationBancaire(
         @RequestParam("operationId") Long operationId,
         @RequestParam("montant") Double montant) {
     
-    logger.info("Reçu - reglementId: {}, operationId: {}, montant: {}", 
+    logger.info("ReÃ§u - reglementId: {}, operationId: {}, montant: {}", 
         reglementId, operationId, montant);
     
-    // Vérification des paramètres
     if (reglementId == null || operationId == null || montant == null) {
-        throw new IllegalArgumentException("Paramètres manquants");
+        throw new IllegalArgumentException("ParamÃ¨tres manquants");
     }
     
     return affectationService.affecterAOperationBancaire(reglementId, operationId, montant);
