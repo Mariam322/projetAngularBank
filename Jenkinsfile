@@ -27,7 +27,7 @@ pipeline {
                     steps {
                         withMaven(maven: 'MAVEN3.3.9windows') {
                             dir('EurekaCompain') {  
-                                sh 'mvn clean package -DskipTests'
+                                bat 'mvn clean package -DskipTests'
                             }
                         }
                     }
@@ -37,7 +37,7 @@ pipeline {
                     steps {
                         withMaven(maven: 'MAVEN3.3.9windows') {
                             dir('Gatway') {  
-                                sh 'mvn clean package -DskipTests'
+                                bat 'mvn clean package -DskipTests'
                             }
                         }
                     }
@@ -47,7 +47,7 @@ pipeline {
                     steps {
                         withMaven(maven: 'MAVEN3.3.9windows') {
                             dir('ProjetCompain') {  
-                                sh 'mvn clean package -DskipTests'
+                                bat 'mvn clean package -DskipTests'
                             }
                         }
                     }
@@ -57,7 +57,7 @@ pipeline {
                     steps {
                         withMaven(maven: 'MAVEN3.3.9windows') {
                             dir('Facturation') {  
-                                sh 'mvn clean package -DskipTests'
+                                bat 'mvn clean package -DskipTests'
                             }
                         }
                     }
@@ -67,7 +67,7 @@ pipeline {
                     steps {
                         withMaven(maven: 'MAVEN3.3.9windows') {
                             dir('Depense') {  
-                                sh 'mvn clean package -DskipTests'
+                                bat 'mvn clean package -DskipTests'
                             }
                         }
                     }
@@ -77,7 +77,7 @@ pipeline {
                     steps {
                         withMaven(maven: 'MAVEN3.3.9windows') {
                             dir('BanqueService') {  
-                                sh 'mvn clean package -DskipTests'
+                                bat 'mvn clean package -DskipTests'
                             }
                         }
                     }
@@ -87,7 +87,7 @@ pipeline {
                     steps {
                         withMaven(maven: 'MAVEN3.3.9windows') {
                             dir('ReglementAffectation') {  
-                                sh 'mvn clean package -DskipTests'
+                                bat 'mvn clean package -DskipTests'
                             }
                         }
                     }
@@ -97,7 +97,7 @@ pipeline {
                     steps {
                         withMaven(maven: 'MAVEN3.3.9windows') {
                             dir('Documents') {  
-                                sh 'mvn clean package -DskipTests'
+                                bat 'mvn clean package -DskipTests'
                             }
                         }
                     }
@@ -110,7 +110,7 @@ pipeline {
                 stage('Build Eureka Image') {
                     steps {
                         dir('EurekaCompain') {
-                            sh "docker build -t mariammseddi12/eureka-server ."
+                            bat "docker build -t mariammseddi12/eureka-server ."
                         }
                     }
                 }
@@ -118,7 +118,7 @@ pipeline {
                 stage('Build Gateway Image') {
                     steps {
                         dir('Gatway') {
-                            sh "docker build -t mariammseddi12/gateway-service ."
+                            bat "docker build -t mariammseddi12/gateway-service ."
                         }
                     }
                 }
@@ -126,7 +126,7 @@ pipeline {
                 stage('Build Compain Image') {
                     steps {
                         dir('ProjetCompain') {
-                            sh "docker build -t  mariammseddi12/compain-service ."
+                            bat "docker build -t  mariammseddi12/compain-service ."
                         }
                     }
                 }
@@ -134,7 +134,7 @@ pipeline {
                 stage('Build Facturation Image') {
                     steps {
                         dir('Facturation') {
-                            sh "docker build -t  mariammseddi12/facturation-service ."
+                            bat "docker build -t  mariammseddi12/facturation-service ."
                         }
                     }
                 }
@@ -142,7 +142,7 @@ pipeline {
                 stage('Build Depense Image') {
                     steps {
                         dir('Depense') {
-                            sh "docker build -t  mariammseddi12/depense-service ."
+                            bat "docker build -t  mariammseddi12/depense-service ."
                         }
                     }
                 }
@@ -150,7 +150,7 @@ pipeline {
                 stage('Build Bank Image') {
                     steps {
                         dir('BanqueService') {
-                            sh "docker build -t  mariammseddi12/bank-service ."
+                            bat "docker build -t  mariammseddi12/bank-service ."
                         }
                     }
                 }
@@ -158,7 +158,7 @@ pipeline {
                 stage('Build ReglemetnAffecatation Image') {
                     steps {
                         dir('ReglementAffectation') {
-                            sh "docker build -t  mariammseddi12/reglemetnaffecatation-service ."
+                            bat "docker build -t  mariammseddi12/reglemetnaffecatation-service ."
                         }
                     }
                 }
@@ -166,7 +166,7 @@ pipeline {
                 stage('Build document Image') {
                     steps {
                         dir('Documents') {
-                            sh "docker build -t  mariammseddi12/document-service ."
+                            bat "docker build -t  mariammseddi12/document-service ."
                         }
                     }
                 }
@@ -180,16 +180,16 @@ pipeline {
                     passwordVariable: 'DockerHubPassword',
                     usernameVariable: 'DockerHubUsername'
                 )]) {
-                    sh "docker login -u mariammseddi12 -p ${env.DockerHubPassword}"
+                    bat "docker login -u mariammseddi12 -p ${env.DockerHubPassword}"
                     
-                    sh "docker push mariammseddi12/eureka-server"
-                    sh "docker push mariammseddi12/gateway-service"
-                    sh "docker push mariammseddi12/compain-service"
-                    sh "docker push mariammseddi12/facturation-service"
-                    sh "docker push mariammseddi12/depense-service"
-                    sh "docker push mariammseddi12/bank-service"
-                    sh "docker push mariammseddi12/reglemetnaffecatation-service"
-                    sh "docker push mariammseddi12/document-service"
+                    bat "docker push mariammseddi12/eureka-server"
+                    bat "docker push mariammseddi12/gateway-service"
+                    bat "docker push mariammseddi12/compain-service"
+                    bat "docker push mariammseddi12/facturation-service"
+                    bat "docker push mariammseddi12/depense-service"
+                    bat "docker push mariammseddi12/bank-service"
+                    bat "docker push mariammseddi12/reglemetnaffecatation-service"
+                    bat "docker push mariammseddi12/document-service"
                 }
             }
         }
@@ -198,13 +198,11 @@ pipeline {
             steps {
                 script {
                     withKubeConfig([credentialsId: 'ovh-kubernetes-credentials']) {
-                        sh """
-                            # Créer le namespace
+                        bat """
                             kubectl create namespace ${K8S_NAMESPACE} --dry-run=client -o yaml | kubectl apply -f -
                             
-                            # Déployer dans l'ordre
                             kubectl apply -f kubernetes/01-eureka.yaml -n ${K8S_NAMESPACE}
-                            sleep 20
+                            timeout /t 20 /nobreak
                             
                             kubectl apply -f kubernetes/gateway.yaml -n ${K8S_NAMESPACE}
                             kubectl apply -f kubernetes/compain-service.yaml -n ${K8S_NAMESPACE}
@@ -228,7 +226,7 @@ pipeline {
                         ]
                         
                         services.each { service ->
-                            sh "kubectl rollout status deployment/${service} -n ${K8S_NAMESPACE} --timeout=300s"
+                            bat "kubectl rollout status deployment/${service} -n ${K8S_NAMESPACE} --timeout=300s"
                         }
                     }
                 }
