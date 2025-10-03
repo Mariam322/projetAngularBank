@@ -2,12 +2,13 @@ pipeline {
     agent any
 
     tools {
-        jdk 'jdk-17'
-        maven 'maven-3.8.6'
+        jdk 'JDK19'
+        maven 'MAVEN3.3.9windows'
     }
 
     environment {
         DOCKER_REGISTRY = 'mariammseddi12'
+        JAVA_HOME = 'C:\\Program Files\\Java\\jdk-19' 
         K8S_NAMESPACE = 'microservice'
         JENKINS_NOOP = "true"
         JENKINS_OPTS = "-Dorg.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL=300"
@@ -24,7 +25,7 @@ pipeline {
             parallel {
                 stage('Build Eureka') {
                     steps {
-                        withMaven(maven: 'maven-3.8.6') {
+                        withMaven(maven: 'MAVEN3.3.9windows') {
                             dir('EurekaCompain') {  
                                 sh 'mvn clean package -DskipTests'
                             }
@@ -34,7 +35,7 @@ pipeline {
 
                 stage('Build Gateway') {
                     steps {
-                        withMaven(maven: 'maven-3.8.6') {
+                        withMaven(maven: 'MAVEN3.3.9windows') {
                             dir('Gatway') {  
                                 sh 'mvn clean package -DskipTests'
                             }
@@ -44,7 +45,7 @@ pipeline {
 
                 stage('Build Compain Service') {
                     steps {
-                        withMaven(maven: 'maven-3.8.6') {
+                        withMaven(maven: 'MAVEN3.3.9windows') {
                             dir('ProjetCompain') {  
                                 sh 'mvn clean package -DskipTests'
                             }
@@ -54,7 +55,7 @@ pipeline {
 
                 stage('Build Facturation Service') {
                     steps {
-                        withMaven(maven: 'maven-3.8.6') {
+                        withMaven(maven: 'MAVEN3.3.9windows') {
                             dir('Facturation') {  
                                 sh 'mvn clean package -DskipTests'
                             }
@@ -64,7 +65,7 @@ pipeline {
 
                 stage('Build Depense Service') {
                     steps {
-                        withMaven(maven: 'maven-3.8.6') {
+                        withMaven(maven: 'MAVEN3.3.9windows') {
                             dir('Depense') {  
                                 sh 'mvn clean package -DskipTests'
                             }
@@ -74,7 +75,7 @@ pipeline {
 
                 stage('Build Bank Service') {
                     steps {
-                        withMaven(maven: 'maven-3.8.6') {
+                        withMaven(maven: 'MAVEN3.3.9windows') {
                             dir('BanqueService') {  
                                 sh 'mvn clean package -DskipTests'
                             }
@@ -84,7 +85,7 @@ pipeline {
 
                 stage('Build ReglementAffectation Service') {
                     steps {
-                        withMaven(maven: 'maven-3.8.6') {
+                        withMaven(maven: 'MAVEN3.3.9windows') {
                             dir('ReglementAffectation') {  
                                 sh 'mvn clean package -DskipTests'
                             }
@@ -94,7 +95,7 @@ pipeline {
 
                 stage('Build Documents Service') {
                     steps {
-                        withMaven(maven: 'maven-3.8.6') {
+                        withMaven(maven: 'MAVEN3.3.9windows') {
                             dir('Documents') {  
                                 sh 'mvn clean package -DskipTests'
                             }
