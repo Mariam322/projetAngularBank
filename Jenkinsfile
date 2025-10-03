@@ -9,9 +9,8 @@ pipeline {
     environment {
         DOCKER_REGISTRY = 'mariammseddi12'
         K8S_NAMESPACE = 'microservice'
-        JENKINS_NOOP = "true"  // Option de secours
+        JENKINS_NOOP = "true"
         JENKINS_OPTS = "-Dorg.jenkinsci.plugins.durabletask.BourneShellScript.HEARTBEAT_CHECK_INTERVAL=300"
-        
     }
 
     stages {
@@ -196,20 +195,55 @@ pipeline {
 
         stage('Deploy to OVH Kubernetes') {
             steps {
-                sh 'docker-compose down && docker-compose up -d'
+                script {
+                    withKubeConfig([credentialsId: 'ovh-kubernetes-credentials']) {
+                        sh """
+                            # Créer le namespace
+                            kubectl create namespace ${K8S_NAMESPACE} --dry-run=client -o yaml | kubectl apply -f -
+                            
+                            # Déployer dans l'ordre
+                            kubectl apply -f kubernetes/01-eureka.yaml -n ${K8S_NAMESPACE}
+                            sleep 20
+                            
+                            kubectl apply -f kubernetes/gateway.yaml -n ${K8S_NAMESPACE}
+                            kubectl apply -f kubernetes/compain-service.yaml -n ${K8S_NAMESPACE}
+                            kubectl apply -f kubernetes/facturation-service.yaml -n ${K8S_NAMESPACE}
+                            kubectl apply -f kubernetes/depense-service.yaml -n ${K8S_NAMESPACE}
+                            kubectl apply -f kubernetes/06-bank-service.yaml -n ${K8S_NAMESPACE}
+                            kubectl apply -f kubernetes/07-reglementaffectation-service.yaml -n ${K8S_NAMESPACE}
+                            kubectl apply -f kubernetes/08-document-service.yaml -n ${K8S_NAMESPACE}
+                        """
+                        
+                        // Vérifier tous les services BACKEND uniquement
+                        def services = [
+                            'eureka-server',
+                            'gateway-service',
+                            'compain-service',
+                            'facturation-service',
+                            'depense-service',
+                            'bank-service',
+                            'reglemetnaffecatation-service',
+                            'document-service'
+                        ]
+                        
+                        services.each { service ->
+                            sh "kubectl rollout status deployment/${service} -n ${K8S_NAMESPACE} --timeout=300s"
+                        }
+                    }
+                }
             }
         }
     }
-     post {
-    always {
-        script {
-            try {
-                junit testResults: '**/target/surefire-reports/*.xml', allowEmptyResults: true
-            } catch (e) {
-                echo "Pas de tests à publier – on continue sans erreur."
+
+    post {
+        always {
+            script {
+                try {
+                    junit testResults: '**/target/surefire-reports/*.xml', allowEmptyResults: true
+                } catch (e) {
+                    echo "Pas de tests à publier – on continue sans erreur."
+                }
             }
         }
     }
-     
-     }
 }
